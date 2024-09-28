@@ -3,13 +3,14 @@
 @Date: 2024-08-08
 @Last Modified by: Rahul 
 @Last Modified time: 2024-08-08
-@Title: Employee wages - Python program to calculate employee monthly wage 
+@Title: Employee wages - Python program to calculate employee daily wages  
 '''
 
 import random
 
 WAGE_PER_HOUR=20
-FULL_DAY_HOUR=8
+FULL_TIME_HOUR=8
+PART_TIME_HOUR=4
 
 def attendance():
     
@@ -19,27 +20,30 @@ def attendance():
      Parameters:
           None        
      Return:
-          1 (1): If the employee present
-          0 (0): If the employee absent
+          1 (int): If the employee present
+          0 (int): If the employee absent
      '''
      
-    return random.randint(0,1)
+    return random.randint(0,2)
 
-def calculate_daily_wage(status):
+def calculate_wage_for_day(status):
     
-     '''
+    '''
      Description: 
           The function to calculate employee daily wage 
      Parameters:
-          status (str): The employee is present or parttime or absent
+          work_hour (int): The work hour for the day
      Return:
           wages (int): The daily wage of the employee
      '''
-     
-     if status== 1:
-        return FULL_DAY_HOUR * WAGE_PER_HOUR, "FullTime"
 
-     else:
+    if status == 1:
+        return WAGE_PER_HOUR * FULL_TIME_HOUR, "FullTime"
+
+    elif status == 2:
+        return WAGE_PER_HOUR * PART_TIME_HOUR, "PartTime" 
+
+    else:
         return 0, "Absent"
 
 def main():
@@ -47,11 +51,11 @@ def main():
 
      #  EMPLOYEE ATTEDANCE
     status=attendance()
+    
+     #  CALCULATE DAILY WAGE
+    daily_wage,status=calculate_wage_for_day(status)
+    print(f"Employee status: {status}")
+    print(f"The employee daily wage: {daily_wage}")   
 
-     #  DAILY WAGE
-    daily_wage, status =calculate_daily_wage(status)
-    print(f"Employee status: '{status}'")
-    print(f"The employee daily wage: {daily_wage}")
-   
 if __name__ == "__main__":
     main()
